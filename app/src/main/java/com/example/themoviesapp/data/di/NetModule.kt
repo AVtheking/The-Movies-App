@@ -8,14 +8,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetModule(private val baseeUrl:String) {
+class NetModule(private val baseUrl:String) {
     @Singleton
 
     @Provides
     fun providesRetrofit():Retrofit{
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(baseeUrl)
+            .baseUrl(baseUrl)
             .build()
     }
     @Singleton

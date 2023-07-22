@@ -16,8 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="Popular movies"
-            android:textSize="30sp"
             android:textColor="@color/white"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/recyclerivew"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,13 +26,36 @@
             android:id="@+id/recyclerivew"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
             android:scrollbars="horizontal"
+            app:flow_horizontalStyle="spread"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview1"
-            android:paddingHorizontal="10dp"
-            app:flow_horizontalStyle="spread"/>
+            app:layout_constraintTop_toBottomOf="@+id/textview1" />
+
+        <TextView
+            android:id="@+id/TvShows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="18dp"
+            android:text="Popular Tv shows"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerivew" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/TvShowsRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TvShows" />
 
         <ProgressBar
             android:id="@+id/progressbar"

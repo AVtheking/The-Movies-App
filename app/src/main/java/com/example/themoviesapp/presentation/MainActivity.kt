@@ -21,8 +21,10 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: MovieViewModelFactory
     private lateinit var movieViewModel: MyViewModel
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MovieAdapter
+    private lateinit var tvAdapter:TvAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
@@ -31,6 +33,30 @@ class MainActivity : AppCompatActivity() {
         movieViewModel=ViewModelProvider(this,factory)
             .get(MyViewModel::class.java)
         setUpRecyclerView()
+        setUpRecyclerView2()
+    }
+
+    private fun setUpRecyclerView2() {
+         binding.TvShowsRecyclerView.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        tvAdapter=TvAdapter()
+        binding.TvShowsRecyclerView.adapter=tvAdapter
+        displayPopularShow()
+    }
+
+    private fun displayPopularShow() {
+        binding.progressbar.visibility=View.VISIBLE
+        val responseLiveData=movieViewModel.getTvShows()
+        responseLiveData.observe(this, Observer {
+            if(it!=null)
+            {
+                tvAdapter.differ.submitList(it)
+                binding.progressbar.visibility=View.GONE
+            }
+            else{
+                binding.progressbar.visibility=View.GONE
+                Toast.makeText(applicationContext,"No Data Available",Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun setUpRecyclerView() {

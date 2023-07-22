@@ -11,13 +11,13 @@ class MovieRepositoryImp(
     private val movieLocalDataSource: MovieLocalDataSource,
     private val movieRemoteDataSource: MovieRemoteDataSource
 ):MovieRepository {
-    override suspend fun getMovies(): List<Movie>? {
+    override suspend fun getMovies(): List<Movie>?{
         return getMoviesFromCache()
     }
 
 
 
-    override suspend fun updateMovies(): List<Movie>? {
+    override suspend fun updateMovies(): List<Movie>?{
          val newListOFMovies=getMoviesFromAPI()
         movieLocalDataSource.clearAll()
         movieLocalDataSource.saveMovetoDb(newListOFMovies)
@@ -26,7 +26,7 @@ class MovieRepositoryImp(
     }
 
     suspend fun getMoviesFromAPI(): List<Movie> {
-         lateinit var movieList:List<Movie>
+           var movieList: List<Movie> = emptyList()
          try {
              val response = movieRemoteDataSource.getMovies()
              val body = response.body()
@@ -38,33 +38,32 @@ class MovieRepositoryImp(
          }
         return movieList
     }
-    suspend fun getMoviesFromRoom():List<Movie> {
-        lateinit var movieList: List<Movie>
+    suspend fun getMoviesFromRoom(): List<Movie> {
+        var movieList: List<Movie> = emptyList() // Initialize with an empty list
+
         try {
             movieList = movieLocalDataSource.getMovieFromDb()
-        }catch (exception:Exception){
+        } catch (exception: Exception) {
+            // Handle the exception
+        }
 
-        }
-        if(movieList.size>0)
-        {
-            return  movieList
-        }
-        else
-        {
-            movieList=getMoviesFromAPI()
+        if (movieList.isNotEmpty()) {
+            return movieList
+        } else {
+            movieList = getMoviesFromAPI()
             movieLocalDataSource.saveMovetoDb(movieList)
         }
+
         return movieList
     }
-    suspend fun getMoviesFromCache(): List<Movie>? {
-           lateinit var movieList:List<Movie>
-
+    suspend fun getMoviesFromCache(): List<Movie> {
+        var movieList: List<Movie> = emptyList()
            try {
                movieList=movieCacheDataSource.getMoviesFromCache()
            }catch (exception:Exception){
 
            }
-        if(movieList.size >0)
+        if(movieList.isNotEmpty())
             return movieList
         else
         {

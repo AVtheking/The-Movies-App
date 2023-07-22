@@ -11,5 +11,5 @@ data class TV(
     @SerializedName("name")
     val name:String,
     @SerializedName("poster_path")
-    val poster_path:String
+    val poster_path:String?
 )

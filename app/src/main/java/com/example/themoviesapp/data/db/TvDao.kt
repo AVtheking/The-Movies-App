@@ -9,7 +9,7 @@ import com.example.themoviesapp.data.model.TV
 @Dao
 interface TvDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveTvShow(tv: TV)
+    suspend fun saveTvShow(tv: List<TV>)
 
     @Query("select *from popular_tv_show")
     suspend fun getTvShows():List<TV>

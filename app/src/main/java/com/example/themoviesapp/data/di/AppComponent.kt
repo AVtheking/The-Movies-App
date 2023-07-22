@@ -9,7 +9,7 @@ import javax.inject.Singleton
               CacheDataModule::class,
               DatabaseModule::class,
               LocalDataModule::class,
-
+    TvRepoModule::class,
     NetModule::class,
     RemoteDataSource::class,
     RepositoryModule::class,
